@@ -1,0 +1,30 @@
+[
+  {
+    "id":"img1",
+    "filename":"SchoolBellVibration.png",
+    "title":"School Bell Vibration",
+    "keywords":["bell", "school", "vibration", "ringing", "sound"],
+    "description":"A school bell vibrating, generating sound waves."
+  },
+  {
+    "id":"img2",
+    "filename":"CompressionAndRefraction.png",
+    "title":"Compression & Rarefaction",
+    "keywords":["compression", "rarefaction", "refraction", "waves", "longitudinal", "sound"],
+    "description":"A diagram illustrating sound wave compression and rarefaction (refraction)."
+  },
+  {
+    "id":"img3",
+    "filename":"MusicalInstrumentsVibrationChart.png",
+    "title":"Musical Instruments Overview",
+    "keywords":["instrument", "music", "guitar", "flute", "vibration", "chart"],
+    "description":"A chart demonstrating how various musical instruments produce vibrations."
+  },
+  {
+    "id":"img4",
+    "filename":"reflection.png",
+    "title":"Sound Echo & Reflection",
+    "keywords":["echo", "reflection", "bounce", "wall", "reverberation"],
+    "description":"Scientific view of sound waves reflecting off a solid surface."
+  }
+]

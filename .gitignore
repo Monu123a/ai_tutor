@@ -1,0 +1,18 @@
+# Environments
+.env
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+build/
+
+# OS Files
+.DS_Store
+
+# Temporary Files
+test.pdf
+backend/uploads/
