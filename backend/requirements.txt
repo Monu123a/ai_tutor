@@ -4,7 +4,7 @@ streamlit
 requests
 python-multipart
 pymupdf
-sentence-transformers
-faiss-cpu
+scikit-learn
+scipy
 numpy
 python-dotenv

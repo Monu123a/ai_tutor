@@ -1,9 +1,7 @@
 import fitz
-import faiss
 import numpy as np
-from sentence_transformers import SentenceTransformer
-
-model = SentenceTransformer("all-MiniLM-L6-v2")
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 def extract_pdf_text(path):
     doc = fitz.open(path)
@@ -25,26 +23,27 @@ def chunk_text(text, chunk_size=500, overlap=100):
     return chunks
 
 def create_embeddings(chunks):
-    vectors = model.encode(chunks)
-    arr = np.array(vectors).astype("float32")
-
-    index = faiss.IndexFlatL2(arr.shape[1])
-    index.add(arr)
-
-    return index
+    vectorizer = TfidfVectorizer(stop_words='english')
+    try:
+        tfidf_matrix = vectorizer.fit_transform(chunks)
+    except ValueError:
+        vectorizer = TfidfVectorizer()
+        tfidf_matrix = vectorizer.fit_transform(chunks)
+    return (vectorizer, tfidf_matrix)
 
 def search_chunks(question, chunks, index, k=4):
-    q = model.encode([question])
-    q = np.array(q).astype("float32")
-
-    distances, ids = index.search(q, k)
-
+    vectorizer, tfidf_matrix = index
+    q_vec = vectorizer.transform([question])
+    scores = cosine_similarity(q_vec, tfidf_matrix)[0]
+    
+    best_indices = np.argsort(scores)[-k:][::-1]
+    
     results = []
-    for i in ids[0]:
-        if i < len(chunks):
+    for i in best_indices:
+        if scores[i] > 0.05:
             results.append(chunks[i])
-
-    return results
-
-def embed_text(text):
-    return model.encode([text])[0]
+            
+    if not results and len(chunks) > 0:
+        results = [chunks[best_indices[0]]]
+        
+    return results[:k]
